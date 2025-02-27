@@ -5,7 +5,6 @@ import {
   index,
   singlestoreTableCreator,
   bigint,
-  timestamp,
 } from "drizzle-orm/singlestore-core";
 
 /**
