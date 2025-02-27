@@ -6,9 +6,7 @@ import {
 import DriveContents from "../../drive-contents";
 import { eq } from "drizzle-orm";
 import {
-  getAllParentsForFolder,
-  getFiles,
-  getFolders,
+  QUERIES
 } from "~/server/db/queries";
 
 export default async function GoogleDriveClone(props: {
@@ -23,9 +21,9 @@ export default async function GoogleDriveClone(props: {
   //   console.log(params.folderId);
 
   const [folders, files, parents] = await Promise.all([
-    getFiles(paresedFolderId),
-    getFolders(paresedFolderId),
-    getAllParentsForFolder(paresedFolderId),
+    QUERIES.getFiles(paresedFolderId),
+    QUERIES.getFolders(paresedFolderId),
+    QUERIES.getAllParentsForFolder(paresedFolderId),
   ]);
 
   return <DriveContents files={files} folders={folders} parents={parents} />;
