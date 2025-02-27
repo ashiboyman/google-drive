@@ -1,10 +1,5 @@
-import { db } from "~/server/db";
-import {
-  files_table as filesSchema,
-  folders_table as foldersSchema,
-} from "~/server/db/schema";
+
 import DriveContents from "../../drive-contents";
-import { eq } from "drizzle-orm";
 import {
   QUERIES
 } from "~/server/db/queries";
