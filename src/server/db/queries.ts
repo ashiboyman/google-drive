@@ -45,12 +45,13 @@ export const MUTATJONS = {
       name: string;
       size: number;
       url: string;
+      parent: number;
     };
     userId: string;
   }) {
     return await db.insert(filesSchema).values({
       ...input.file,
-      parent: 1,
+      parent: input.file.parent,
     }); 
   },
 };
