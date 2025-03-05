@@ -1,3 +1,4 @@
+import { SignInButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import { ArrowRight, Cloud, Lock, Zap } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -20,29 +21,9 @@ export default function Home() {
           <h1 className="bg-gradient-to-r from-gray-100 to-gray-400 bg-clip-text text-4xl font-bold tracking-tighter text-transparent md:text-6xl">
             Storage. But Worse.
           </h1>
-          <p className="mx-auto max-w-2xl text-xl text-gray-400 md:text-2xl">
-            All the features you love about cloud storage, just slightly worse
-            in every way.
-          </p>
+          
           <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row">
-            <form
-              action={async () => {
-                "use server";
-                const session = await auth();
-                if (!session.userId) {
-                  return redirect("/sign-in");
-                }
-                return redirect("/drive");
-              }}
-            >
-              <Button
-                type="submit"
-                className="rounded-md bg-gradient-to-r from-gray-700 to-gray-600 px-8 py-6 text-lg font-medium text-white hover:from-gray-600 hover:to-gray-500"
-              >
-                Get Started
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </form>
+            <SignInButton forceRedirectUrl={"/drive"}/>
           </div>
         </div>
 
