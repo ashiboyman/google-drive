@@ -10,6 +10,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import { PostHogProvider } from "./_providers/posthog-provider";
 export const metadata: Metadata = {
   title: "Arshia's Drive",
   description: "It's like Google Drive, but for worse!",
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={`${GeistSans.variable}`}>
-        <body>{children}</body>
+        <body>
+          <PostHogProvider>{children}</PostHogProvider>
+        </body>
       </html>
     </ClerkProvider>
   );
