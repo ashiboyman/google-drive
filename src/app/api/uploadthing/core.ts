@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import { z } from "zod";
-import { MUTATJONS, QUERIES } from "~/server/db/queries";
+import { MUTATIONS, QUERIES } from "~/server/db/queries";
 
 const f = createUploadthing();
 
@@ -43,7 +43,7 @@ export const ourFileRouter = {
       console.log("Upload complete for userId:", metadata.userId);
       console.log("file url", file.url);
 
-      await MUTATJONS.createFile({
+      await MUTATIONS.createFile({
         file: {
           name: file.name,
           size: file.size,
