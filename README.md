@@ -11,10 +11,6 @@
 
 ## Fun follow ups
 
-### Folder deletions
-
-Make sure you fetch all of the folders that have it as a parent, and their children too
-
 
 ### Access control
 
@@ -34,3 +30,8 @@ You get the idea. Maybe check out my last tutorial?
 ### Folder creations
 
 Make a server action that takes a name and parentId, and creates a folder with that name and parentId (don't forget to set the ownerId).
+
+
+### Folder deletions
+
+Make sure you fetch all of the folders that have it as a parent, and their children too
