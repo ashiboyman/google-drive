@@ -1,3 +1,4 @@
+import { auth } from "@clerk/nextjs/server";
 import DriveContents from "./drive-contents";
 import { QUERIES } from "~/server/db/queries";
 
@@ -9,13 +10,16 @@ export default async function GoogleDriveClone(props: {
   if (isNaN(paresedFolderId)) {
     return <div>Invalid folder id</div>;
   }
-
+  const session = await auth();
+  if (!session.userId) {
+    throw new Error("Unauthorized");
+  }
   //   console.log(params.folderId);
 
   const [folders, files, parents] = await Promise.all([
-    QUERIES.getFolders(paresedFolderId),
-    QUERIES.getFiles(paresedFolderId),
-    QUERIES.getAllParentsForFolder(paresedFolderId),
+    QUERIES.getFolders(paresedFolderId,session.userId),
+    QUERIES.getFiles(paresedFolderId,session.userId),
+    QUERIES.getAllParentsForFolder(paresedFolderId,session.userId),
   ]);
 
   return (

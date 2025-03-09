@@ -12,9 +12,6 @@
 ## Fun follow ups
 
 
-### Access control
-
-Check if user is owner before showing the folder page.
 
 ### Make a "file view" page
 
@@ -35,3 +32,7 @@ Make a server action that takes a name and parentId, and creates a folder with t
 ### Folder deletions
 
 Make sure you fetch all of the folders that have it as a parent, and their children too
+
+### Access control
+
+Check if user is owner before showing the folder page.

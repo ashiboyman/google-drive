@@ -7,33 +7,41 @@ import {
   type DB_FileType,
 } from "~/server/db/schema";
 import { eq, isNull, and } from "drizzle-orm";
+import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
 export const QUERIES = {
-  getFolders: function (folderId: number) {
+  getFolders: async function (folderId: number,userId: string) {
+    
     return db
       .select()
       .from(foldersSchema)
-      .where(eq(foldersSchema.parent, folderId))
+      .where(
+        and(
+          eq(foldersSchema.parent, folderId),
+          eq(foldersSchema.ownerId, userId),
+        ),
+      )
       .orderBy(foldersSchema.id);
   },
-  getFiles: function (folderId: number) {
+  getFiles: function (folderId: number,userId: string) {
     return db
       .select()
       .from(filesSchema)
-      .where(eq(filesSchema.parent, folderId))
+      .where(and(eq(filesSchema.parent, folderId),eq(filesSchema.ownerId, userId)))
       .orderBy(filesSchema.id);
   },
-  getAllParentsForFolder: async function (folderId: number) {
+  getAllParentsForFolder: async function (folderId: number,userId: string) {
     const parents = [];
     let currentId: number | null = folderId;
     while (currentId !== null) {
       const folder = await db
         .selectDistinct()
         .from(foldersSchema)
-        .where(eq(foldersSchema.id, currentId));
+        .where(and(eq(foldersSchema.id, currentId),eq(foldersSchema.ownerId, userId)));
 
       if (!folder[0]) {
-        throw new Error("Parent folder not found");
+        return redirect("/404");
       }
       parents.unshift(folder[0]);
       currentId = folder[0]?.parent;
